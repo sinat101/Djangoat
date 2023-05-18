@@ -7,30 +7,16 @@ on:
     - .github/workflows/semgrep.yml
 name: Semgrep
 jobs:
-  requirementsGeneration: 
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v3
-      - name: Generate requirements txt
-        run: pip freeze --all | tee requirements.txt
-      #- name: Upload Requirements File as Artifact     
-        uses: actions/upload-artifact@v3
-        with:
-          name: requirementstxt
-          path: requirements.txt
-  semgrep:
-    needs: requirementsGeneration
-    name: Scan
-    runs-on: ubuntu-20.04
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: returntocorp/semgrep
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download artifact from previous job
-        uses: actions/download-artifact@v3
-        with:
-          name: requirementstxt
-      - run: semgrep ci
+  my_first_job: 
+    name: requirementsGeneration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate requirements txt
+        run: pip freeze --all | tee requirements.txt
+      - name: Upload Requirements File as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: requirementstxt
+          path: requirements.txt
 
