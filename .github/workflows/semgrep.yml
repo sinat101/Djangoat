@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Generate requirements txt
         run: pip freeze --all | tee requirements.txt
-      - name: Upload Requirements File as Artifact     
+      #- name: Upload Requirements File as Artifact     
         uses: actions/upload-artifact@v3
         with:
           name: requirementstxt
