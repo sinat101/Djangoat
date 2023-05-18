@@ -19,4 +19,18 @@ jobs:
         with:
           name: requirementstxt
           path: requirements.txt
-
+  my_second_job:
+    needs: my_first_job
+    name: Scan
+    runs-on: ubuntu-20.04
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download artifact from previous job
+        uses: actions/download-artifact@v3
+        with:
+          name: requirementstxt
+      - run: semgrep ci
