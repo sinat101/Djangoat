@@ -10,7 +10,7 @@ pipeline {
       SEMGREP_COMMIT = "${GIT_COMMIT}"
       SEMGREP_REPO_URL = env.GIT_URL.replaceFirst(/^(.*).git$/,'$1')
       SEMGREP_PR_ID = "${env.CHANGE_ID}"
-      SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*).git$/, '$1')
+      SEMGREP_REPO_NAME = ${env.GIT_URL}.replaceFirst(/^https:\/\/github.com\/(.*).git$/, '$1')
     }
     stages {
       stage('Print-Vars') {
