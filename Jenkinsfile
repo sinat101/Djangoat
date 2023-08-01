@@ -29,7 +29,7 @@ pipeline {
                     }  else {
                         sh "echo 'Hello from ${env.GIT_BRANCH} branch'"
                         echo "we're checking out ${SEMGREP_REPO_NAME} on ${SEMGREP_BRANCH} ${SEMGREP_BASELINE_REF} with ${SEMGREP_REPO_URL}"
-                        checkoutRepo(${SEMGREP_REPO_NAME}, "master", 100, ${SEMGREP_BASELINE_REF}, ${SEMGREP_REPO_URL})
+                        checkoutRepo("r2c-CSE/Djangoat", "master", 100, "origin/master", "https://github.com/r2c-CSE/Djangoat")
                       //sh "git fetch origin +ref/heads/*:refs/remotes/origin/*" //Is it needed?
                         semgrepPullRequestScan()
                     }
