@@ -23,7 +23,7 @@ pipeline {
                 script {
                     if (env.GIT_BRANCH == 'master') {
                         echo "we're checking out ${SEMGREP_REPO_NAME} on ${SEMGREP_BRANCH} ${SEMGREP_BASELINE_REF} with ${SEMGREP_REPO_URL}"
-                        checkoutRepo(${SEMGREP_REPO_NAME}, "master", 100, ${SEMGREP_BASELINE_REF}, ${SEMGREP_REPO_URL})
+                        checkoutRepo($SEMGREP_REPO_NAME, "master", 100, $SEMGREP_BASELINE_REF, $SEMGREP_REPO_URL)
                         echo "Hello from ${env.GIT_BRANCH} branch"
                         semgrepFullScan()
                     }  else {
