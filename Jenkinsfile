@@ -23,7 +23,7 @@ pipeline {
                 script {
                     if (env.GIT_BRANCH == 'master') {
                         echo "we're checking out ${SEMGREP_REPO_NAME} on ${SEMGREP_BRANCH} ${SEMGREP_BASELINE_REF} with ${SEMGREP_REPO_URL}"
-                        checkoutRepo("r2c-CSE/Djangoat", "master", 100, "origin/master", "https://github.com/r2c-CSE/Djangoat")
+                        checkout2("r2c-CSE/Djangoat", "master", 100, "origin/master", "https://github.com/r2c-CSE/Djangoat")
                         echo "Hello from ${env.GIT_BRANCH} branch"
                         semgrepFullScan()
                     }  else {
