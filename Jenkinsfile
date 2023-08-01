@@ -10,6 +10,7 @@ pipeline {
       SEMGREP_COMMIT = "${GIT_COMMIT}"
       SEMGREP_REPO_URL = env.GIT_URL.replaceFirst(/^(.*).git$/,'$1')
       SEMGREP_PR_ID = "${env.CHANGE_ID}"
+      SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*).git$/, '$1')
     }
     stages {
       stage('Print-Vars') {
@@ -21,11 +22,15 @@ pipeline {
         steps {
                 script {
                     if (env.GIT_BRANCH == 'master') {
+                        echo "we're checking out $SEMGREP_REPO_NAME on $SEMGREP_BRANCH $SEMGREP_BASELINE_REF with $SEMGREP_REPO_URL"
+                        checkoutRepo($SEMGREP_REPO_NAME, $SEMGREP_BRANCH, 100, $SEMGREP_BASELINE_REF, $SEMGREP_REPO_URL)
                         echo "Hello from ${env.GIT_BRANCH} branch"
                         semgrepFullScan()
                     }  else {
                         sh "echo 'Hello from ${env.GIT_BRANCH} branch'"
-                        sh "git fetch origin +ref/heads/*:refs/remotes/origin/*" //Is it needed?
+                        echo "we're checking out $SEMGREP_REPO_NAME on $SEMGREP_BRANCH $SEMGREP_BASELINE_REF with $SEMGREP_REPO_URL"
+                        checkoutRepo($SEMGREP_REPO_NAME, $SEMGREP_BRANCH, 100, $SEMGREP_BASELINE_REF, $SEMGREP_REPO_URL)
+                      //sh "git fetch origin +ref/heads/*:refs/remotes/origin/*" //Is it needed?
                         semgrepPullRequestScan()
                     }
                 }
